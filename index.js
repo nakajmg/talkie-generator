@@ -11,7 +11,8 @@ const generate = (dirPath) => {
     return err
   }
   dirPath = path.resolve(dirPath)
-  const config = require(`${dirPath}/config`)
+  delete require.cache[`${dirPath}/config.js`];
+  const config = require(`${dirPath}/config.js`)
   if (_.isUndefined(config)) {
     var err = new Error('Missing config.js')
     console.log(err)
