@@ -38,23 +38,26 @@ const generate = (dirPath) => {
   const contents = md.split(config.delimiter || /\n-{5}\n/)
 
   contents.forEach((markdown, index) => {
+    if (_.isUndefined(config.pages[index])) {
+      config.pages[index] = _.assign({}, { attributes: 'layout' })
+    }
     config.pages[index].contents = markdown
   })
 
-  config.pages.forEach((config) => {
-    config.type = config.type || 'text/x-markdown'
-    config.tag = config.type === 'html' ? 'section' : 'template'
+  config.pages.forEach((page) => {
+    page.type = page.type || 'text/x-markdown'
+    page.tag = page.type === 'html' ? 'section' : 'template'
 
-    if (_.isUndefined(config.attributes)) {
-      config.attributes = []
+    if (_.isUndefined(page.attributes)) {
+      page.attributes = []
       return
     }
-    if (_.isString(config.attributes)) {
-      config.attributes = [config.attributes]
+    if (_.isString(page.attributes)) {
+      page.attributes = [page.attributes]
       return
     }
-    if (_.isObject(config.attributes)) {
-      config.attributes = _.map(config.attributes, (value, key) => {
+    if (_.isObject(page.attributes)) {
+      page.attributes = _.map(page.attributes, (value, key) => {
         return value ? `${cc.paramCase(key)}="${value}"` : cc.paramCase(key)
       })
     }
