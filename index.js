@@ -60,7 +60,7 @@ const generate = (dirPath) => {
   })
 
   const html = ejs.render(template, config, {})
-  const outputPath = path.resolve(path.normalize(`${config.dist || '.'}/${dirPath}/index.html`))
+  const outputPath = path.resolve(path.normalize(`${dirPath}/${config.dist || '.'}/index.html`))
   fs.outputFileSync(outputPath, html, 'utf-8')
   console.log(`Generated: ${outputPath}`)
 }
