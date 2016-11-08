@@ -10,7 +10,15 @@
   "bin": {
     "talkie": "./bin/talkie"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nakajmg/talkie-generator.git"
+  },
   "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/nakajmg/talkie-generator/issues"
+  },
   "dependencies": {
     "change-case": "^3.0.0",
     "ejs": "^2.5.2",
