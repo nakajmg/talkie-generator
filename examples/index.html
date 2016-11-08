@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../lib/talkie.min.css">
+  <link rel="stylesheet" href="../lib/talkie-default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/monokai_sublime.min.css">
+</head>
+<body>
+
+
+<template type="text/x-markdown"
+  layout="title"
+  invert
+  backface="./img/bg.png"
+  backface-filter="blur(2px) brightness(1.5)">
+# talkie-generator
+  
+---
+
+タイトルページのノート
+
+</template>
+
+<template type="text/x-markdown"
+  layout="bullets">
+
+## モチベ
+
+* Talkie.jsいいぞ
+* HTMLとMarkdown分離したいぞ
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="bullets">
+
+## 構成
+
+* template.ejs
+* index.md
+* config.js
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="title">
+
+## template.ejs
+
+`config.js` と `index.md` をもとにページを生成
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="title">
+
+## index.md
+
+Markdown。ページの区切りはハイフン5個（`confing.js`で変更可能）
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="bullets">
+
+## config.js
+
+ページごとの設定を記述。
+
+- pages
+  - attributes
+    - layout
+    - invert
+    - backface
+    - backfaceFilter
+  - note
+  - type
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="code">
+
+## config.js
+
+```javascript
+module.exports = {
+  pages: [
+    {
+      attributes: {
+        layout: 'title',
+        invert: '',
+        backface: './img/bg.png',
+        backfaceFilter: 'blur(2px) brightness(1.5)'
+      },
+      note: 'ノートです'
+    },
+    {
+      attributes: ['layout="transparent"']
+    },
+    {
+      type: 'html',
+      attributes: 'layout'
+    }
+  ],
+  delimiter: /\n-----\n/, // optional {RegExp}
+  dist: '.' // optional {String}
+}
+```
+
+
+</template>
+
+<section type="html"
+  layout>
+
+<h1>pages.type</h1>
+
+`type: 'html'` で `section` タグになる。HTMLがかける。
+
+<ul>
+  <li> リスト要素
+  <li> リスト要素
+  <li> リスト要素
+</ul>
+
+
+</section>
+
+<template type="text/x-markdown"
+  layout="title">
+
+## [nakajmg/talkie-generator](https://github.com/nakajmg/talkie-generator)
+
+
+</template>
+
+<template type="text/x-markdown"
+  layout="bullets">
+
+## コマンド
+
+- `talkie init <outputPath>` テンプレートを生成
+  - `-b` オプションでTalkie本体もコピー
+- `talkie <templatesPath>` テンプレートから `index.html` を生成  
+
+
+
+</template>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../lib/talkie.min.js"></script>
+<script>
+  var talkie = Talkie({
+    wide: false
+  })
+  talkie.key('space').subscribe(talkie.next$)
+  talkie.key('s').subscribe(talkie.next$)
+  talkie.key('n').subscribe(talkie.next$)
+  talkie.key('a').subscribe(talkie.prev$)
+  talkie.key('p').subscribe(talkie.prev$)
+
+  document.addEventListener('DOMContentLoaded', function() {
+    talkie.changed.subscribe(function(current) {
+      console.info(talkie.notes[current.getAttribute('data-page')])
+    })
+  })
+</script>
+</body>
+</html>
