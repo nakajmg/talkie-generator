@@ -39,7 +39,7 @@ const generate = (dirPath) => {
 
   contents.forEach((markdown, index) => {
     if (_.isUndefined(config.pages[index])) {
-      config.pages[index] = _.assign({}, { attributes: 'layout' })
+      config.pages[index] = _.assign({}, config.default || { attributes: 'layout' })
     }
     config.pages[index].contents = markdown
   })
