@@ -10,6 +10,7 @@ const generate = (dirPath) => {
     console.log(err)
     return err
   }
+  dirPath = path.resolve(dirPath)
   const config = require(`${dirPath}/config`)
   if (_.isUndefined(config)) {
     var err = new Error('Missing config.js')
