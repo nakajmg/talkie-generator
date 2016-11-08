@@ -1,0 +1,25 @@
+{
+  "name": "talkie-generator",
+  "version": "0.0.1",
+  "description": "Generator for Talkie.js",
+  "author": {
+    "name": "nakajmg",
+    "email": "nakajmg@pxgrid.com"
+  },
+  "main": "index.js",
+  "bin": {
+    "talkie": "./bin/talkie"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "change-case": "^3.0.0",
+    "ejs": "^2.5.2",
+    "fs-extra": "^1.0.0",
+    "lodash": "^4.16.6",
+    "nodetree": "0.0.3",
+    "yargs": "^6.3.0"
+  },
+  "peerDependencies": {
+    "talkiejs": "^0.10.0"
+  }
+}

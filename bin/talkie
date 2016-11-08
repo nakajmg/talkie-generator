@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+const argv = require('yargs').argv
+const fs = require('fs-extra')
+const path = require('path')
+const tree = require('nodetree')
+const talkieGen = require('../index')
+const f = argv._[0]
+
+if (f === 'init') {
+  var basePath = process.cwd()
+  var dirPath = argv._[1] ? argv._[1] : 'templates'
+  var outputPath = path.resolve(basePath, dirPath)
+
+  fs.copySync(`${__dirname}/../templates`, outputPath)
+  console.log(`Generated templates:`)
+  tree(outputPath)
+
+  if (argv.b) {
+    fs.copySync(`${__dirname}/../lib`, path.resolve(outputPath, '../', 'lib'))
+    tree(path.resolve(outputPath, '../', 'lib'))
+  }
+  return
+}
+else {
+  talkieGen(f)
+}
+
+// TODO: watch したい

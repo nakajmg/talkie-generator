@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="../lib/talkie.min.css">
+  <link rel="stylesheet" href="../lib/talkie-default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/monokai_sublime.min.css">
+</head>
+<body>
+
+<% pages.forEach((page) => { %>
+<<%- page.tag %> type="<%- page.type %>"<% page.attributes.forEach((attributes) => { %>
+  <%- attributes -%>
+<% }) -%>>
+<%- page.contents %>
+<% if(page.note) { -%>
+---
+
+<%- page.note %>
+<% } %>
+</<%- page.tag %>>
+<% }) %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="../lib/talkie.min.js"></script>
+<script>
+  var talkie = Talkie({
+    wide: false
+  })
+  talkie.key('space').subscribe(talkie.next$)
+  talkie.key('s').subscribe(talkie.next$)
+  talkie.key('n').subscribe(talkie.next$)
+  talkie.key('a').subscribe(talkie.prev$)
+  talkie.key('p').subscribe(talkie.prev$)
+
+  document.addEventListener('DOMContentLoaded', function() {
+    talkie.changed.subscribe(function(current) {
+      console.info(talkie.notes[current.getAttribute('data-page')])
+    })
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "talkie": "talkie"
+  },
+  "dependencies": {
+    "talkie-jenerator": "file:.."
+  }
+}
