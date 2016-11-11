@@ -10,16 +10,16 @@
 <body>
 
 <% pages.forEach((page) => { %>
-<<%- page.tag %> type="<%- page.type %>"<% page.attributes.forEach((attributes) => { %>
+<<%- page.config.tag %> type="<%- page.config.type %>"<% page.config.attributes.forEach((attributes) => { %>
   <%- attributes -%>
 <% }) -%>>
 <%- page.contents %>
-<% if(page.note) { -%>
+<% if(page.config.note) { -%>
 ---
 
-<%- page.note %>
+<%- page.config.note %>
 <% } %>
-</<%- page.tag %>>
+</<%- page.config.tag %>>
 <% }) %>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
 <script src="../lib/talkie.min.js"></script>
