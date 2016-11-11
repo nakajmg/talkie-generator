@@ -1,6 +1,12 @@
 module.exports = {
+  defaults: {
+    attributes: {
+      layout: 'bullets'
+    }
+  },
   pages: [
     {
+      name: 'top',
       attributes: {
         layout: 'title',
         invert: '',
@@ -10,47 +16,20 @@ module.exports = {
       note: 'タイトルページのノート'
     },
     {
-      attributes: {
-        layout: 'bullets'
-      }
-    },
-    {
-      attributes: {
-        layout: 'bullets'
-      }
-    },
-    {
-      attributes: {
-        layout: 'title'
-      }
-    },
-    {
-      attributes: {
-        layout: 'title'
-      }
-    },
-    {
-      attributes: {
-        layout: 'bullets'
-      }
-    },
-    {
+      name: 'code',
       attributes: {
         layout: 'code'
       }
     },
     {
+      name: 'html',
       type: 'html',
       attributes: 'layout'
     },
     {
+      name: 'title',
       attributes: {
         layout: 'title'
-      }
-    },
-    {
-      attributes: {
-        layout: 'bullets'
       }
     }
   ],

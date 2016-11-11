@@ -35,35 +35,49 @@ const generate = (dirPath) => {
     console.log(err)
     return err
   }
-  const contents = md.split(config.delimiter || /\n-{5}\n/)
-
-  contents.forEach((markdown, index) => {
-    if (_.isUndefined(config.pages[index])) {
-      config.pages[index] = _.assign({}, config.default || { attributes: 'layout' })
+  const pages = _.map(md.split(config.delimiter || /\n-{5}\n/), (contents) => {
+    var name;
+    if (/<!--(.+?)-->/.test(contents)) {
+      contents = contents.replace(/<!--(.+?)-->\n/i, (match, $1) => {
+        name = $1
+        return ''
+      })
     }
-    config.pages[index].contents = markdown
+    return {contents, name}
   })
 
-  config.pages.forEach((page) => {
-    page.type = page.type || 'text/x-markdown'
-    page.tag = page.type === 'html' ? 'section' : 'template'
+  pages.forEach((page) => {
+    var pageConfig;
+    if (!_.isUndefined(page.name)) {
+      var _config = _.find(config.pages, {name: page.name})
+      pageConfig = _config ? _.assign({}, _config) : undefined
+    }
+    if (_.isUndefined(pageConfig)) {
+      pageConfig = _.assign({}, config.defaults)
+    }
+    page.config = pageConfig
+  })
 
-    if (_.isUndefined(page.attributes)) {
-      page.attributes = []
+  pages.forEach((page) => {
+    page.config.type = page.config.type || 'text/x-markdown'
+    page.config.tag = page.config.type === 'html' ? 'section' : 'template'
+
+    if (_.isUndefined(page.config.attributes)) {
+      page.config.attributes = ['layout']
       return
     }
-    if (_.isString(page.attributes)) {
-      page.attributes = [page.attributes]
+    if (_.isString(page.config.attributes)) {
+      page.config.attributes = [page.config.attributes]
       return
     }
-    if (_.isObject(page.attributes)) {
-      page.attributes = _.map(page.attributes, (value, key) => {
+    if (_.isObject(page.config.attributes)) {
+      page.config.attributes = _.map(page.config.attributes, (value, key) => {
         return value ? `${cc.paramCase(key)}="${value}"` : cc.paramCase(key)
       })
     }
   })
 
-  const html = ejs.render(template, config, {})
+  const html = ejs.render(template, {pages}, {})
   const outputPath = path.resolve(path.normalize(`${dirPath}/${config.dist || '.'}/index.html`))
   fs.outputFileSync(outputPath, html, 'utf-8')
   console.log(`Generated: ${outputPath}`)

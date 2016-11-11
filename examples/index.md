@@ -1,14 +1,13 @@
+<!--top-->
 # talkie-generator
   
 -----
-
 ## モチベ
 
 * Talkie.jsいいぞ
 * HTMLとMarkdown分離したいぞ
 
 -----
-
 ## 構成
 
 * template.ejs
@@ -16,16 +15,17 @@
 * config.js
 
 -----
-
 ## template.ejs
 
 `config.js` と `index.md` をもとにページを生成
 
 -----
-
+<!--title-->
 ## index.md
 
-Markdown。ページの区切りはハイフン5個（`confing.js`で変更可能）
+- Markdown。ページの区切りはハイフン5個（`confing.js`で変更可能）
+- `<!--page_name-->` でページに名前つける
+- `config.js`の`name`と対応する
 
 -----
 
@@ -34,6 +34,7 @@ Markdown。ページの区切りはハイフン5個（`confing.js`で変更可�
 ページごとの設定を記述。
 
 - pages
+  - name
   - attributes
     - layout
     - invert
@@ -43,36 +44,36 @@ Markdown。ページの区切りはハイフン5個（`confing.js`で変更可�
   - type
 
 -----
+<!--code-->
 
 ## config.js
-
 ```javascript
-module.exports = {
+  defaults: {
+    attributes: {
+      layout: 'bullets'
+    }
+  },
   pages: [
     {
+      name: 'top',
       attributes: {
         layout: 'title',
         invert: '',
         backface: './img/bg.png',
         backfaceFilter: 'blur(2px) brightness(1.5)'
       },
-      note: 'ノートです'
+      note: 'タイトルページのノート'
     },
     {
-      attributes: ['layout="transparent"']
-    },
-    {
+      name: 'html',
       type: 'html',
       attributes: 'layout'
     }
   ],
-  delimiter: /\n-----\n/, // optional {RegExp}
-  dist: '.' // optional {String}
-}
 ```
 
 -----
-
+<!--html-->
 <h1>pages.type</h1>
 
 `type: 'html'` で `section` タグになる。HTMLがかける。
@@ -84,7 +85,7 @@ module.exports = {
 </ul>
 
 -----
-
+<!--title-->
 ## [nakajmg/talkie-generator](https://github.com/nakajmg/talkie-generator)
 
 -----
