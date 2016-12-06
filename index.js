@@ -20,6 +20,7 @@ const generate = (dirPath) => {
   }
 
   var template;
+  var md;
   try {
     template = fs.readFileSync(`${dirPath}/template.ejs`, 'utf-8')
   }
@@ -27,7 +28,7 @@ const generate = (dirPath) => {
     template = fs.readFileSync(`${__dirname}/template.ejs`, 'utf-8')
   }
   try {
-    const md = fs.readFileSync(`${dirPath}/index.md`, 'utf-8')
+    md = fs.readFileSync(`${dirPath}/index.md`, 'utf-8')
   }
   catch(e) {
     console.log(e.message)
